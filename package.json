@@ -1,0 +1,19 @@
+{
+  "name": "coding-blocks-assignments-tool",
+  "version": "1.0.0",
+  "description": "Submission tool for advance courses at coding blocks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhishek1208/Coding-Blocks-Assignment-Tools/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2"
+  }
+}
