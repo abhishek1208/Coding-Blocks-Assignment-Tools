@@ -25,3 +25,7 @@ app.use('/submitAssignment',submitAssignmentRouter);
 
 app.use('/', express.static(__dirname + '/public_html'));
 
+app.listen(4000,function () {
+    console.log("listening on port 4000");
+})
+

@@ -8,4 +8,11 @@ let submissions = $('#viewsubmissions');
 let submit = $('#submit');
 
 
+addcourse.click(function () {
+    $.get('/addCourse',function (data) {
+        console.log(data)
+    });
+})
+
+
 
