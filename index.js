@@ -3,6 +3,8 @@
  */
 const express = require('express');
 const bp = require('body-parser');
+const hbs = require('express-hbs');
+const path = require('path');
 
 
 const addCourseRouter = require('./routers/addCourseRouter')
@@ -11,12 +13,15 @@ const submitAssignmentRouter=require('./routers/submitAssignmentRouter')
 
 const app = express();
 
+app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "hbs");
+
 
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
 
 
-app.use('/addCourse', addCourseRouter);
+app.use('/AddCourse', addCourseRouter);
 
 app.use('/addAssignment',addAssignmentRouter);
 
