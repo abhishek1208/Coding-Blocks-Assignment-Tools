@@ -3,7 +3,7 @@
  */
 let addcourse = $('#AddCourse');
 let viewcourses = $('#ViewCourses');
-let addassgn = $('#AddAssignment');
+let addassgn = $('#Add Assignment');
 let submissions = $('#ViewSubmissions');
 let submit = $('#Submit');
 
