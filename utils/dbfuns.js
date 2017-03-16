@@ -10,13 +10,38 @@ const sequelize = new Sequelize("cb","cbUser","cbPass",{
 
 // TODO table to store courses
 
+const Course = sequelize.define('courses', {
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    name: Sequelize.STRING,
+    teacher:Sequelize.STRING,
+    startdate:Sequelize.DATE,
+    enddate:Sequelize.DATE,
+    students:Sequelize.ARRAY,
+    assignments:Sequelize.ARRAY
+});
 
+function addCourse(Course) {
 
+    Course.create({
+        task: Course.name,
+    }).then(function () {
+        console.log("Added");
+    }).catch(function () {
+        console.log("could not add");
+    })
+}
 
 
 
 
 // TODO table to store assignments
+
+const assignmentSubmission=sequelize.define('assginmentsub', {
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    name: Sequelize.STRING,
+    submissions:Sequelize.ARRAY,
+    dated:Sequelize.DATE
+});
 
 
 
@@ -25,8 +50,17 @@ const sequelize = new Sequelize("cb","cbUser","cbPass",{
 
 //TODO archive table for courses
 
+const Course = sequelize.define('courses', {
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    name: Sequelize.STRING,
+    teacher:Sequelize.STRING,
+    startdate:Sequelize.DATE,
+    enddate:Sequelize.DATE,
+    students:Sequelize.ARRAY,
+    assignments:Sequelize.ARRAY
+});
 
 
-module.exports = {
 
+module.exports = {addCourse
 }
