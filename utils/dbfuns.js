@@ -53,10 +53,8 @@ const asgns = sequelize.define('assignments', {
 const submissions = sequelize.define('submissions', {
     courseID: Sequelize.INTEGER,
     asgnID: Sequelize.INTEGER,
-    students : Sequelize.ARRAY({type : Sequelize.STRING, validate : {isEmail : true}})
+    students : Sequelize.ARRAY( Sequelize.ARRAY({type : Sequelize.STRING}))
 })
-
-
 
 
 
@@ -267,8 +265,17 @@ function addAsgnToCourse(courseID, asgnID) {
             arr.push(asgnID);
 
             row.update({
-                students_list: arr
+                assn_list: arr
             })
+
+            submissions.create({
+                courseID : courseID,
+                asgnID : asgnID,
+                students : [[]]
+
+
+            })
+
         }).catch(function (err) {
             //wrong course id
         })
@@ -285,6 +292,13 @@ function addAsgnToCourse(courseID, asgnID) {
                 row.update({
                     students_list: arr
                 })
+
+                submissions.create({
+                    courseID : courseID,
+                    asgnID : asgnID,
+                    students : [[]]
+
+                })
             }).catch(function (err) {
                 //wrong course id
             })
@@ -299,14 +313,14 @@ function addAsgnToCourse(courseID, asgnID) {
 
 
 //function to submit assignment
-function submitasgn(courseID,asgnID,email) {
+function submitasgn(courseID,asgnID,email,url) {
     activecourses.findOne({where : {id : courseID}}).then(function (Course_row) {
         if(Course_row.students_list.indexOf(email)===-1) throw new SQLException('Student not enrolled in course');
 
         submissions.findOne({where : {courseID : courseID , asgnID : asgnID}}).then(function (row) {
             let arr = row.students;
 
-            arr.push(email);
+            arr.push([email,url]);
 
             row.update({
                 students: arr
