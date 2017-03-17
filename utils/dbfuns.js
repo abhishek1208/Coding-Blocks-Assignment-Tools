@@ -3,9 +3,10 @@
  */
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize("cb", "cbUser", "cbPass", {
+const sequelize = new Sequelize("postgres", "postgres", "Cool@man6", {
     host: 'localhost',
-    dialect: 'postgreSQL',
+    dialect: 'postgres',
+    port : 5433
 });
 
 
@@ -81,8 +82,10 @@ const archivedcourses = sequelize.define('archivedcourses', {
 
 
 sequelize.sync().then(() => {
-}).catch(() => {
-    console.log("error while syncing")
+}).catch((err) => {
+
+    throw  err;
+
 });
 
 
