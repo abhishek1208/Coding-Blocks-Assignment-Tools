@@ -14,13 +14,8 @@ router.use(bp.urlencoded({extended: true}))
 router.post('/', function (req, res) {
     // console.log(req);
     dbfuns.addcourse(req.body.courseName, req.body.teacher, req.body.students, req.body.date)
-//<<<<<<< HEAD
 });
-//=======
 
-//>>>>>>> d77c6fc804bef54a4e53ba7dd14f77c8e625d716
-
-})
 
 
 
