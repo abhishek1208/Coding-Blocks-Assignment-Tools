@@ -5,6 +5,7 @@ const express = require('express');
 const bp = require('body-parser');
 const router = express.Router();
 const dbfuns = require('../utils/dbfuns');
+const dbfuns_sql = require('../utils/dbfuns_sql');
 
 router.use(bp.json());
 router.use(bp.urlencoded({extended: true}))
@@ -13,7 +14,11 @@ router.use(bp.urlencoded({extended: true}))
 router.post('/', function (req, res) {
     // console.log(req);
     dbfuns.addcourse(req.body.courseName, req.body.teacher, req.body.students, req.body.date)
+//<<<<<<< HEAD
+});
+//=======
 
+//>>>>>>> d77c6fc804bef54a4e53ba7dd14f77c8e625d716
 
 })
 
