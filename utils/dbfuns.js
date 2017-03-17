@@ -38,9 +38,9 @@ const activecourses = sequelize.define('activecourses', {
 
 const asgns = sequelize.define('assignments', {
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type : Sequelize.STRING,validate : {unique : true}},
+    name: {type : Sequelize.STRING,unique : true},
     description: Sequelize.STRING
-})
+});
 
 
 
@@ -237,13 +237,13 @@ function addStudent(courseID, email, done) {
 
 //function to add assignment
 
-function addasgn(asgn_name,asgn_desc,courseID) {
+function addasgn(asgnName,asgnDesc,courseID) {
     asgns.create({
-        name : asgn_name,
-        description: asgn_desc
+        name : asgnName,
+        description: asgnDesc
     }).then(function () {
         if(courseID){
-            addAsgnToCourse(courseID,asgn_name);
+            addAsgnToCourse(courseID,asgnName);
         }
     }).catch(function (err) {
         if(err) throw err;
@@ -257,6 +257,9 @@ function addasgn(asgn_name,asgn_desc,courseID) {
 //function to add assignment to course
 
 function addAsgnToCourse(courseID, asgnID) {
+
+
+    //TODO for courseID to be course name
 
     if(Number.isInteger(asgnID)){
 
@@ -291,12 +294,12 @@ function addAsgnToCourse(courseID, asgnID) {
                 arr.push(assn_row.dataValues.id);
 
                 row.update({
-                    students_list: arr
+                    assn_list: arr
                 })
 
                 submissions.create({
                     courseID : courseID,
-                    asgnID : asgnID,
+                    asgnID : assn_row.id,
                     students : [[]]
 
                 })
@@ -315,6 +318,11 @@ function addAsgnToCourse(courseID, asgnID) {
 
 //function to submit assignment
 function submitasgn(courseID,asgnID,email,url) {
+
+
+    //TODO if same person submits again
+
+
     activecourses.findOne({where : {id : courseID}}).then(function (Course_row) {
         if(Course_row.dataValues.students_list.indexOf(email)===-1) throw new SQLException('Student not enrolled in course');
 
