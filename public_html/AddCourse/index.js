@@ -1,6 +1,9 @@
 /**
  * Created by varun on 3/17/17.
  */
+
+var submit = $('#submit');
+
 $('#open').click(function () {
     console.log("hello")
     if ($('#open').is(':checked')) {
@@ -21,3 +24,10 @@ $('#close').click(function () {
 
     }
 })
+
+submit.click(function () {
+
+})
+
+
+
