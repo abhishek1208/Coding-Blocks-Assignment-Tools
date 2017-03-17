@@ -15,6 +15,9 @@ router.post('/', function (req, res) {
     dbfuns.addcourse(req.body.courseName, req.body.teacher, req.body.students, req.body.date)
 
 
+})
+
+
 
 router.use('/', express.static(__dirname.substr(0, __dirname.length - 7) + 'public_html/AddCourse'));
 
