@@ -8,13 +8,7 @@ router.use('/',express.static(__dirname.substr(0,__dirname.length - 7) + 'public
 
 //code here
 const dbfuns_sql=require('../utils/dbfuns_sql');
-router.get('/add',function (req,res) {
-    dbfuns_sql.addcourse("Pandora","Arnav Gupta","abhishek1208@gmail.com;varun@gmail.com;aditi23@gmail.com",
-        function (){}
 
-    );
-    res.send("added course");
-})
 
 
 module.exports = router;

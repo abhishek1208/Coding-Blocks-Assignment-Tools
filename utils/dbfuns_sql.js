@@ -10,8 +10,8 @@ const sequelize = new Sequelize("cb", "cbUser", "cbPass", {
 });
 
 sequelize.sync().then(() => {
-}).catch(() => {
-    console.log("error while syncing")
+}).catch((err) => {
+    throw err;
 });
 //table to store active courses
 const activecourses = sequelize.define('activecourses', {
@@ -26,8 +26,6 @@ const activecourses = sequelize.define('activecourses', {
         allowNull: true,
 
     },
-
-
     assn_list: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -41,26 +39,17 @@ const activecourses = sequelize.define('activecourses', {
 
 const asgns = sequelize.define('assignments', {
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name: Sequelize.STRING,
+    name: {type: Sequelize.STRING, unique: true},
     description: Sequelize.STRING
-})
-
+});
 
 //table for submissions
 const submissions = sequelize.define('submissions', {
     courseID: Sequelize.INTEGER,
     asgnID: Sequelize.INTEGER,
-    students: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        get: function () {
-            return this.getDataValue('students').split(';')
-        },
-        set: function (val) {
-            this.setDataValue('students', val.join(';'));
-        },
-        validate: {isEmail: true}
-    }
+    student_email: Sequelize.STRING,
+    submission_url:{ type:Sequelize.STRING,unique:true,allowNull: false} //detecting same links submitted by different students, unique:true
+
 })
 
 
@@ -74,29 +63,14 @@ const archivedcourses = sequelize.define('archivedcourses', {
     endDate: Sequelize.DATE,
     students_list: {
         type: Sequelize.STRING,
-        allowNull: true,
-        get: function () {
-            return this.getDataValue('students_list').split(';')
-        },
-        set: function (val) {
-            this.setDataValue('students_list', val.join(';'));
-        },
+        allowNull: true
     },
     assn_list: {
         type: Sequelize.STRING,
-        allowNull: true,
-        get: function () {
-            return this.getDataValue('assn_list').split(';')
-        },
-        set: function (val) {
-            this.setDataValue('assn_list', val.join(';'));
-        },
+        allowNull: true
     }
 
 });
-
-
-
 
 
 //function to add course
@@ -107,7 +81,7 @@ function addcourse(courseName, teacherName, Students, done, StartDate) {
     activecourses.create({
         name: courseName,
         teacher: teacherName,
-        students_list:Students,
+        students_list: Students,
         assn_list: "",
         startDate: stDate,
         endDate: new Date().setMonth(stDate.getMonth() + 3)
@@ -190,12 +164,17 @@ function addStudent(courseID, email, done) {
         activecourses.findOne({where: {id: courseID}}).then(function (row) {
             //TODO check row null
 
-            let arr = row.students_list;
-            arr.push(email);
 
+            let list = row.students_list;
+            if(!list)
             row.update({
-                students_list: arr
+                students_list: email
             })
+            else{
+                row.update({
+                    students_list : row.students_list + ';' + email
+                })
+            }
             done();
         }).catch(function (err) {
             throw err
@@ -221,13 +200,103 @@ function addStudent(courseID, email, done) {
 
 //function to add assignment
 
-function addasgn() {
-    //TODO
+function addasgn(asgn_name, asgn_desc, courseID) {
+    asgns.create({
+        name: asgn_name,
+        description: asgn_desc
+    }).then(function (row) {
+        console.log("done");
+        if (courseID) {
+            addAsgnToCourse(courseID, asgn_name);
+        }
+    }).catch(function (err) {
+        //TODO error if assignment with same name already present
+        if (err) { //TODO check the type of error
+            if (courseID) {
+                addAsgnToCourse(courseID, asgn_name);
+            }
+        }
+    })
+
 }
 
+
+//function to add assignment to course
+
+function addAsgnToCourse(courseID, asgnID) {
+
+    if (Number.isInteger(asgnID)) {
+
+        activecourses.findOne({where: {id: courseID}}).then(function (row) {
+
+            let list = row.assn_list;
+
+            if (!row.assn_list) {
+                row.update({
+                    assn_list: asgnID
+                })
+            }
+            else {
+                row.update({
+                    assn_list: list + ';' + asgnID
+                })
+            }
+
+
+        }).catch(function (err) {
+            //wrong course id
+            console.log("wrong course id")
+            throw err;
+        })
+
+    }
+    else {
+
+        asgns.findOne({where: {name: asgnID}}).then(function (assn_row) {
+            activecourses.findOne({where: {id: courseID}}).then(function (row) {
+
+                let list = row.assn_list;
+
+                if (!list) {
+                    row.update({
+                        assn_list: assn_row.id
+                    })
+                }
+                else {
+                    row.update({
+                        assn_list: list + ';' + assn_row.id
+                    })
+                }
+
+
+            }).catch(function (err) {
+                //wrong course id
+            })
+        })
+
+    }
+
+}
+
+
 //function to submit assignment
-function submitasgn() {
-    //TODO
+function submitasgn(courseID, asgnID, email, url) {
+    activecourses.findOne({where: {id: courseID}}).then(function (Course_row) {
+        //Todo change this comment to find the email of the student in active courses table
+        // if(Course_row.students_list.indexOf(email)===-1) throw new SQLException('Student not enrolled in course');
+        //Todo if submission exists, then update the submission
+        submissions.create({
+            courseID: courseID,
+            asgnID: asgnID,
+            student_email: email,
+            submission_url: url
+        })
+
+
+
+    }).catch(function (err) {
+        if (err) throw err;
+    });
 }
 
 
