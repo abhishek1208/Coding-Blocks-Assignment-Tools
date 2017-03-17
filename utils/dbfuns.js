@@ -81,9 +81,7 @@ const archivedcourses = sequelize.define('archivedcourses', {
 
 sequelize.sync().then(() => {
 }).catch((err) => {
-
     throw  err;
-
 });
 
 
@@ -94,8 +92,8 @@ sequelize.sync().then(() => {
 
 //function to add course
 
-function addcourse(courseName, teacherName, Students, done, StartDate) {
-    var stDate = StartDate || new Date()
+function addcourse(courseName, teacherName, Students, StartDate) {
+    var stDate = StartDate || new Date();
 
     activecourses.create({
         name: courseName,
@@ -105,9 +103,8 @@ function addcourse(courseName, teacherName, Students, done, StartDate) {
         startDate: stDate,
         endDate: new Date().setMonth(stDate.getMonth() + 3)
     }).then(function () {
-        done();
     }).catch(function (err) {
-        done(err);
+        if(err) throw  err;
     })
 
 }

@@ -21,7 +21,7 @@ app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
 
 
-app.use('/AddCourse', addCourseRouter);
+app.use('/addCourse', addCourseRouter);
 
 app.use('/addAssignment',addAssignmentRouter);
 
