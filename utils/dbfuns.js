@@ -37,7 +37,7 @@ const activecourses = sequelize.define('activecourses', {
 
 const asgns = sequelize.define('assignments', {
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name: Sequelize.STRING,
+    name: {type : Sequelize.STRING,validate : {unique : true}},
     description: Sequelize.STRING
 })
 
@@ -52,7 +52,7 @@ const asgns = sequelize.define('assignments', {
 const submissions = sequelize.define('submissions', {
     courseID: Sequelize.INTEGER,
     asgnID: Sequelize.INTEGER,
-    students : Sequelize.ARRAY({type : Sequelize.INTEGER, validate : {isEmail : true}})
+    students : Sequelize.ARRAY({type : Sequelize.STRING, validate : {isEmail : true}})
 })
 
 
@@ -138,8 +138,10 @@ function endcourse(courseID) {
                 startDate: row.startDate,
                 endDate: new Date()
 
+            }).then(function () {
+                row.destroy();
             })
-            row.destroy();
+
         }).catch(function (err) {
             if (err) throw err
         })
@@ -169,8 +171,10 @@ function endcourse(courseID) {
                 endDate: new Date()
 
 
+            }).then(function () {
+                row.destroy();
             })
-            row.destroy();
+
         })
     }
 
@@ -231,14 +235,88 @@ function addStudent(courseID, email, done) {
 
 //function to add assignment
 
-function addasgn() {
-    //TODO
+function addasgn(asgn_name,asgn_desc,courseID) {
+    asgns.create({
+        name : asgn_name,
+        description: asgn_desc
+    }).then(function () {
+        if(courseID){
+            addAsgnToCourse(courseID,asgn_name);
+        }
+    }).catch(function (err) {
+        if(err) throw err;
+    })
+
+
+
 }
+
+
+//function to add assignment to course
+
+function addAsgnToCourse(courseID, asgnID) {
+
+    if(Number.isInteger(asgnID)){
+
+        activecourses.findOne({where: {id: courseID}}).then(function (row) {
+
+            let arr = row.assn_list;
+            arr.push(asgnID);
+
+            row.update({
+                students_list: arr
+            })
+        }).catch(function (err) {
+            //wrong course id
+        })
+
+    }
+    else {
+
+        asgns.findOne({where : {name : asgnID}}).then(function (assn_row) {
+            activecourses.findOne({where: {id: courseID}}).then(function (row) {
+
+                let arr = row.assn_list;
+                arr.push(assn_row.id);
+
+                row.update({
+                    students_list: arr
+                })
+            }).catch(function (err) {
+                //wrong course id
+            })
+        })
+
+    }
+
+}
+
+
+
+
 
 //function to submit assignment
-function submitasgn() {
-    //TODO
+function submitasgn(courseID,asgnID,email) {
+    activecourses.findOne({where : {id : courseID}}).then(function (Course_row) {
+        if(Course_row.students_list.indexOf(email)===-1) throw new SQLException('Student not enrolled in course');
+
+        submissions.findOne({where : {courseID : courseID , asgnID : asgnID}}).then(function (row) {
+            let arr = row.students;
+
+            arr.push(email);
+
+            row.update({
+                students: arr
+            })
+
+        })
+
+    }).catch(function (err) {
+        if(err) throw err;
+    });
 }
 
 
-module.exports = {addcourse, endcourse, addStudent, addasgn, submitasgn}
+
+
+module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn}
