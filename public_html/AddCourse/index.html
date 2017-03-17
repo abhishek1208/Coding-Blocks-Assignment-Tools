@@ -16,21 +16,20 @@
 <body>
 
 <div class="page-header"><h1>Add a new course</h1></div>
-<form>
-    <input type="text" placeholder="Course Name">
-    <input type="text" placeholder="Teacher">
+
+    <input id = "courseName" type="text" placeholder="Course Name">
+    <input id="teacher" type="text" placeholder="Teacher">
     <br>
     <input id="close" type="radio" name="date" value="cur_date">Today's Date<br>
     <input id="open" type="radio" name="date" value="gv_date">Give Date
     <br>
     <input id="date_inp" style="visibility: hidden" type="date">
     <br>
-    <textarea name="paragraph_text" cols="80" rows="7" placeholder="Student emails separated by ;"></textarea>
+    <textarea id="students" name="paragraph_text" cols="80" rows="7" placeholder="Student emails separated by ;"></textarea>
     <br>
     <br>
 
-    <button type="submit" class="btn-primary">Submit Form</button>
-</form>
+    <button id="submit" type="submit" class="btn-primary">Submit Form</button>
 
 
 <script type="text/javascript" src="./index.js"></script>
