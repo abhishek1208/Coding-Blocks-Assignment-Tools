@@ -93,8 +93,10 @@ sequelize.sync().then(() => {
 //function to add course
 
 function addcourse(courseName, teacherName, Students, StartDate) {
-    var stDate = StartDate || new Date();
 
+    var stDate;
+    if(StartDate) stDate = new Date(StartDate);
+    else stDate = new Date();
     activecourses.create({
         name: courseName,
         teacher: teacherName,
@@ -125,15 +127,16 @@ function endcourse(courseID) {
         activecourses.findOne({where: {id: courseID}}).then(function (row) {
             //TODO check if row null
 
-            submissions.findAndCountAll({where : {courseID : row.id}}).then(function (rows) {
-                rows.destroy();
+            submissions.findAll({where : {courseID : row.id}}).then(function (rows) {
+                for(let i=0;i<rows.length;i++)
+                    rows[i].destroy();
             })
             archivedcourses.create({
-                name: row.name,
-                teacher: row.teacher,
-                students_list: row.students_list,
-                assn_list: row.assn_list,
-                startDate: row.startDate,
+                name: row.dataValues.name,
+                teacher: row.dataValues.teacher,
+                students_list: row.dataValues.students_list,
+                assn_list: row.dataValues.assn_list,
+                startDate: row.dataValues.startDate,
                 endDate: new Date()
 
             }).then(function () {
@@ -156,16 +159,17 @@ function endcourse(courseID) {
 
             //TODO check if row null
 
-            submissions.findAndCountAll({where : {courseID : row.id}}).then(function (rows) {
-                rows.destroy();
+            submissions.destroy({where : {courseID : row.id}}).then(function (rows) {
+                for(let i=0;i<rows.length;i++)
+                    rows[i].destroy();
             })
 
             archivedcourses.create({
-                name: row.name,
-                teacher: row.teacher,
+                name: row.dataValues.name,
+                teacher: row.dataValues.teacher,
                 students_list: row.students_list,
-                assn_list: row.assn_list,
-                startDate: row.startDate,
+                assn_list: row.dataValues.assn_list,
+                startDate: row.dataValues.startDate,
                 endDate: new Date()
 
 
@@ -196,7 +200,7 @@ function addStudent(courseID, email, done) {
         activecourses.findOne({where: {id: courseID}}).then(function (row) {
             //TODO check row null
 
-            let arr = row.students_list;
+            let arr = row.dataValues.students_list;
             arr.push(email);
 
             row.update({
@@ -214,7 +218,7 @@ function addStudent(courseID, email, done) {
         activecourses.findOne({where: {name: courseID}}).then(function (row) {
             //TODO handle name conflict
 
-            let arr = row.students_list;
+            let arr = row.dataValues.students_list;
             arr.push(email);
 
             row.update({
@@ -258,7 +262,7 @@ function addAsgnToCourse(courseID, asgnID) {
 
         activecourses.findOne({where: {id: courseID}}).then(function (row) {
 
-            let arr = row.assn_list;
+            let arr = row.dataValues.assn_list;
             arr.push(asgnID);
 
             row.update({
@@ -283,8 +287,8 @@ function addAsgnToCourse(courseID, asgnID) {
         asgns.findOne({where : {name : asgnID}}).then(function (assn_row) {
             activecourses.findOne({where: {id: courseID}}).then(function (row) {
 
-                let arr = row.assn_list;
-                arr.push(assn_row.id);
+                let arr = row.dataValues.assn_list;
+                arr.push(assn_row.dataValues.id);
 
                 row.update({
                     students_list: arr
@@ -312,10 +316,10 @@ function addAsgnToCourse(courseID, asgnID) {
 //function to submit assignment
 function submitasgn(courseID,asgnID,email,url) {
     activecourses.findOne({where : {id : courseID}}).then(function (Course_row) {
-        if(Course_row.students_list.indexOf(email)===-1) throw new SQLException('Student not enrolled in course');
+        if(Course_row.dataValues.students_list.indexOf(email)===-1) throw new SQLException('Student not enrolled in course');
 
         submissions.findOne({where : {courseID : courseID , asgnID : asgnID}}).then(function (row) {
-            let arr = row.students;
+            let arr = row.dataValues.students;
 
             arr.push([email,url]);
 
@@ -332,5 +336,26 @@ function submitasgn(courseID,asgnID,email,url) {
 
 
 
+//function to get all courses
 
-module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn}
+
+function getAllCourses(done) {
+    activecourses.findAndCountAll().then(function (rows) {
+        done(rows.rows);
+    })
+}
+
+
+//function to get all assignments
+
+function getAllAssignments(done) {
+    asgns.findAndCountAll().then(function (rows) {
+        done(rows.rows);
+    })
+}
+
+
+
+
+
+module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn , getAllAssignments , getAllCourses}
