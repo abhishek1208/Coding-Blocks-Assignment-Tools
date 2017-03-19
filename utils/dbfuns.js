@@ -3,7 +3,7 @@
  */
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize("postgres", "postgres", "password", {
+const sequelize = new Sequelize("postgres", "postgres", "Cool@man6", {
     host: 'localhost',
     dialect: 'postgres',
     port : 5433
@@ -92,7 +92,7 @@ sequelize.sync().then(() => {
 
 //function to add course
 
-function addcourse(courseName, teacherName, Students, StartDate) {
+function addcourse(courseName, teacherName, Students,done, StartDate) {
 
     var stDate;
     if(StartDate) stDate = new Date(StartDate);
@@ -105,6 +105,7 @@ function addcourse(courseName, teacherName, Students, StartDate) {
         startDate: stDate,
         endDate: new Date().setMonth(stDate.getMonth() + 3)
     }).then(function () {
+        done();
     }).catch(function (err) {
         if(err) throw  err;
     })

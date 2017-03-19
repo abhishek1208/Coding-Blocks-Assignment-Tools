@@ -13,13 +13,15 @@ const submitAssignmentRouter=require('./routers/submitAssignmentRouter')
 
 const app = express();
 
+
+app.engine('hbs', hbs.express4({})
+);
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "hbs");
 
 
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
-
 
 app.use('/addCourse', addCourseRouter);
 
