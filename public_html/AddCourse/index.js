@@ -37,18 +37,25 @@ close.click(function () {
 submit.click(function (ev) {
 
 
-
     let dateval = undefined;
     if (open.is(':checked')) {
         dateval = new Date(date.val());
     }
 
-
+//TODO remove hard code
     $.post('http://localhost:4000/addcourse', {
         courseName: courseName.val(),
         teacher: teacher.val(),
         students: students.val().split(';'),
         date: dateval
+    },function (data) {
+        if(data == "success"){
+            window.location.replace('http://localhost:4000/addCourse/thanks?success=true')
+        }
+        else{
+            window.location.replace('http://localhost:4000/addCourse/thanks?success=false')
+        }
+
     })
 
 
