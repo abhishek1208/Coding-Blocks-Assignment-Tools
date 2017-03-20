@@ -51,7 +51,15 @@ submit.click(function (ev) {
         name:assgn_name.val(),
         desc:assgn_desc.val(),
         courseid: assgn_courseid.val()
+    },function (data) {
+        if(data == "success"){
+            window.location.replace('http://localhost:4000/addAssignment/thanks?success=true')
+        }
+        else{
+            window.location.replace('http://localhost:4000/addAssignment/thanks?success=false')
+        }
     })
+
 
 
 })

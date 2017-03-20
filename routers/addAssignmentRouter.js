@@ -25,10 +25,36 @@ router.post('/add',function (req,res) {
     //
     // );
     // dbfuns_sql.addasgn(req.body.name,req.body.desc,req.body.courseid);
-    // res.send("added course");
+    res.send("success");
 
-    dbfuns.addasgn(req.body.name,req.body.desc,req.body.courseid);
+    // dbfuns.addasgn(req.body.name,req.body.desc,req.body.courseid);
 })
+
+
+
+router.get('/thanks', function (req, res) {
+
+    if(req.query.success ==="true") {
+
+
+        res.render('index', {
+            title: "Assignment Added",
+            body: "The Assignment has been added Successfully. Thankyou for using HackerAdvance"
+        })
+    }
+    else {
+
+
+        res.render('index', {
+            title: "Assignment not Added",
+            body: "Sorry we are facing some issues at the moment plz try again later. Thankyou for using HackerAdvance"
+        })
+
+    }
+})
+
+
+
 // router.get('/delete',function (req,res) {
 //     dbfuns_sql.endcourse(6);
 //     res.send("ended course");
