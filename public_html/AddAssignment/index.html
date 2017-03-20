@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Assignment</title>
+</head>
+<body>
+<div class="jumbotron">
+    <h1>Hacker Advance</h1>
+    <h2>Add Assignment Section</h2>
+</div>
+
+<form id="assignmentForm">
+    <div class="form-group">
+        <label for="assgn_name">Assignment Name</label>
+        <input type="text" class="form-control" id="assgn_name" placeholder="Name" name="name">
+    </div>
+    <div class="form-group">
+        <label for="assgn_desc">Assignment Description</label>
+        <textarea class="form-control" rows="3" id="assgn_desc" placeholder="Description of the Assignment" name="desc"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="assgn_courseid">Course ID</label>
+        <input type="text" class="form-control" id="assgn_courseid" placeholder="ID of the course" name="courseid">
+    </div>
+    <div class="form-group">
+        <div class="col-md-9 col-md-offset-3">
+            <div id="messages"></div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary " id="submit">Submit</button>
+</form>
+
+
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="./index.js"></script>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css"/>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"> </script>
+
+</body>
+</html>
