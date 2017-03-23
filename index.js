@@ -10,6 +10,7 @@ const path = require('path');
 const addCourseRouter = require('./routers/addCourseRouter')
 const addAssignmentRouter=require('./routers/addAssignmentRouter')
 const submitAssignmentRouter=require('./routers/submitAssignmentRouter')
+const viewAssignmentsRouter = require('./routers/viewAssignmentsRouter')
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use('/addCourse', addCourseRouter);
 app.use('/addAssignment',addAssignmentRouter);
 
 app.use('/submitAssignment',submitAssignmentRouter);
+
+app.use('/viewAssignments',viewAssignmentsRouter);
 
 
 app.use('/', express.static(__dirname + '/public_html'));

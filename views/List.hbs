@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+
+    <title>{{title}}</title>
+
+
+    <script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+
+</head>
+<body>
+
+<ul class="list-group list-unstyled">
+<h1>{{heading}}</h1>
+
+    {{#each body}}
+        <li class="list-group-item">{{this.name}}</li>
+    {{/each}}
+
+
+
+</ul>
+
+
+</body>
+
+
+</html>

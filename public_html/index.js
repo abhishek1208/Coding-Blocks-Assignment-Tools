@@ -6,6 +6,7 @@ let viewcourses = $('#ViewCourses');
 let addassgn = $('#AddAssignment');
 let submissions = $('#ViewSubmissions');
 let submit = $('#Submit');
+let viewassns = $('#viewAssignments');
 
 
 addcourse.click(function () {
@@ -17,6 +18,9 @@ addassgn.click(function () {
 submit.click(function () {
     window.location.replace(window.location.href + '/submitAssignment');
 });
+viewassns.click(function () {
+    window.location.replace(window.location.href + 'viewAssignments');
+})
 
 
 
