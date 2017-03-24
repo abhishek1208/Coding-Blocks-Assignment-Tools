@@ -27,8 +27,7 @@ submissions.click(function () {
 });
 
 viewcourses.click(function () {
-    window.location.replace(window.location.href+'viewcourses');
-
-})
+    window.location.replace(window.location.href + 'viewcourses');
+});
 
 

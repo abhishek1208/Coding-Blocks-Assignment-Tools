@@ -38,6 +38,7 @@ app.use('/ViewSubmissions',ViewSubmissionsRouter);
 
 app.use('/viewcourses',viewcoursesRouter);
 
+
 app.use('/', express.static(__dirname + '/public_html'));
 
 app.listen(4000,function () {
