@@ -362,9 +362,15 @@ function getAllAssignments(done) {
         done(rows.rows);
     })
 }
+function getAssignment(id, done) {
+    asgns.findOne({where : {id : id}}).then(function (row) {
+        done(row);
+    })
+
+}
 
 
 
 
 
-module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn , getAllAssignments , getAllCourses}
+module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn , getAllAssignments , getAllCourses,getAssignment}

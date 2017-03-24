@@ -9,19 +9,36 @@ const db = require('../utils/dbfuns');
 const router = express.Router();
 
 router.use(bp.json());
-router.use(bp.urlencoded({extended : true}));
+router.use(bp.urlencoded({extended: true}));
 
+router.get('/', function (req, res) {
+    if (!req.query.id) {
 
-router.get('/',function (req, res) {
-    db.getAllAssignments((data) => {
-        res.render('List',{
-            title : "Assignments",
-            body : data,
-            heading : "List of All Assignments"
+        db.getAllAssignments((data) => {
+            res.render('List', {
+                title: "Assignments",
+                body: data,
+                heading: "List of All Assignments"
+            })
         })
-    })
-})
 
+    }
+    else {
+        db.getAssignment(req.query.id, (data) => {
+
+            res.render('assgn', {
+                title: data.name,
+                name: data.name,
+                desc: data.description
+            })
+
+        })
+
+
+    }
+
+
+})
 
 
 module.exports = router;

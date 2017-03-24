@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const db = require('../utils/dbfuns_sql');
+const db = require('../utils/dbfuns');
 const router = express.Router();
 const bp = require('body-parser');
 
