@@ -17,21 +17,24 @@
 </head>
 <body>
 
-<div class="page-header"><h1>Add a new course</h1></div>
+<div class="jumbotron"><h1>Hacker Advance</h1><h2>Add a new Course</h2></div>
 
-    <input id = "courseName" type="text" placeholder="Course Name">
-    <input id="teacher" type="text" placeholder="Teacher">
+<div class="controls">
+
+    <input id = "courseName" type="text" placeholder="Course Name" class="form-control"><br>
+    <input id="teacher" type="text" placeholder="Teacher" class="form-control">
     <br>
-    <input id="close" type="radio" name="date" value="cur_date">Today's Date<br>
+    <div>
+    <input id="close" type="radio" name="date" value="cur_date">Today's Date
     <input id="open" type="radio" name="date" value="gv_date">Give Date
+    </div>
+    <input class="form-control" id="date_inp" style="visibility: hidden" type="date">
     <br>
-    <input id="date_inp" style="visibility: hidden" type="date">
-    <br>
-    <textarea id="students" name="paragraph_text" cols="80" rows="7" placeholder="Student emails separated by ;"></textarea>
-    <br>
+    <textarea id="students" class="form-control" name="paragraph_text" cols="80" rows="4" placeholder="Student emails separated by ;"></textarea>
     <br>
 
     <button id="submit" type="submit" class="btn-primary">Submit Form</button>
+</div>
 
 
 <script type="text/javascript" src="./index.js"></script>
