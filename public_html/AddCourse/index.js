@@ -13,6 +13,32 @@ var date = $('#date_inp')
 var submit = $('#submit');
 
 
+
+let availableCourses =[
+    'Elixir',
+    'Pandora',
+    'Crux',
+    'Launchpad',
+    'Perceptron',
+    'Django'
+];
+courseName.autocomplete({
+    source: availableCourses
+});
+let Teachers =[
+    'Arnav Gupta',
+    'Sumeet Malik',
+    'Rajesh Sachdeva',
+    'Rishabh Kapoor',
+    'Prateek Narang',
+    'Manmohan Gupta',
+
+];
+teacher.autocomplete({
+    source: Teachers
+});
+
+
 open.click(function () {
     console.log("hello")
     if (open.is(':checked')) {

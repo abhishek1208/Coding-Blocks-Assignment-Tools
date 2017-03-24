@@ -12,7 +12,7 @@ const addAssignmentRouter=require('./routers/addAssignmentRouter');
 const submitAssignmentRouter=require('./routers/submitAssignmentRouter');
 const viewAssignmentsRouter = require('./routers/viewAssignmentsRouter');
 const ViewSubmissionsRouter = require('./routers/ViewSubmissionsRouter');
-const viewcourses=require('./routers/viewcoursesRouter');
+const viewcoursesRouter=require('./routers/viewcoursesRouter');
 
 const app = express();
 
