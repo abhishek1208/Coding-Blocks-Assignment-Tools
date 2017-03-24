@@ -306,4 +306,11 @@ function getAllSubmissions(done){
 
 }
 
-module.exports = {addcourse, endcourse, addStudent, addasgn, submitasgn,getAllSubmissions}
+function getAllCourses(done){
+    activecourses.findAndCountAll().then(function (data) {
+        done(data.rows);
+    })
+
+}
+
+module.exports = {addcourse, endcourse, addStudent, addasgn, submitasgn,getAllSubmissions,getAllCourses}
