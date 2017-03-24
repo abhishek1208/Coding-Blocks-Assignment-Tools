@@ -26,6 +26,8 @@ submissions.click(function () {
     window.location.replace(window.location.href+'ViewSubmissions');
 });
 
-
+viewcourses.click(function () {
+    window.location.replace(window.location.href+'viewcourses');
+});
 
 

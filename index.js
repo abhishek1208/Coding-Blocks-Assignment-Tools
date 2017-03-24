@@ -12,6 +12,8 @@ const addAssignmentRouter=require('./routers/addAssignmentRouter');
 const submitAssignmentRouter=require('./routers/submitAssignmentRouter');
 const viewAssignmentsRouter = require('./routers/viewAssignmentsRouter');
 const ViewSubmissionsRouter = require('./routers/ViewSubmissionsRouter');
+const viewcourses=require('./routers/viewcourses');
+
 const app = express();
 
 
@@ -33,6 +35,8 @@ app.use('/submitAssignment',submitAssignmentRouter);
 app.use('/viewAssignments',viewAssignmentsRouter);
 
 app.use('/ViewSubmissions',ViewSubmissionsRouter);
+
+app.use('/viewcourses',viewcourses);
 
 app.use('/', express.static(__dirname + '/public_html'));
 
