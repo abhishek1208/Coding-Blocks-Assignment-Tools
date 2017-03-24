@@ -10,17 +10,21 @@ let viewassns = $('#viewAssignments');
 
 
 addcourse.click(function () {
-    window.location.replace(window.location.href + '/addCourse');
+    window.location.replace(window.location.href + 'addCourse');
 });
 addassgn.click(function () {
-    window.location.replace(window.location.href + '/addAssignment');
+    window.location.replace(window.location.href + 'addAssignment');
 });
 submit.click(function () {
-    window.location.replace(window.location.href + '/submitAssignment');
+    window.location.replace(window.location.href + 'submitAssignment');
 });
 viewassns.click(function () {
     window.location.replace(window.location.href + 'viewAssignments');
-})
+});
+
+submissions.click(function () {
+    window.location.replace(window.location.href+'ViewSubmissions');
+});
 
 
 

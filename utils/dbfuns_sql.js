@@ -299,5 +299,11 @@ function submitasgn(courseID, asgnID, email, url) {
     });
 }
 
+function getAllSubmissions(done){
+    submissions.findAndCountAll().then(function (data) {
+        done(data.rows);
+    })
 
-module.exports = {addcourse, endcourse, addStudent, addasgn, submitasgn}
+}
+
+module.exports = {addcourse, endcourse, addStudent, addasgn, submitasgn,getAllSubmissions}
