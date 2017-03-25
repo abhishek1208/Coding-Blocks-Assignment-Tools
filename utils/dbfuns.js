@@ -362,6 +362,11 @@ function getAllAssignments(done) {
         done(rows.rows);
     })
 }
+function getAllSubmissions(done){
+    submissions.findAndCountAll().then(function (rows) {
+        done(rows.rows);
+    })
+}
 function getAssignment(id, done) {
     asgns.findOne({where : {id : id}}).then(function (row) {
         done(row);
@@ -373,4 +378,4 @@ function getAssignment(id, done) {
 
 
 
-module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn , getAllAssignments , getAllCourses,getAssignment}
+module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn , getAllAssignments , getAllCourses,getAllSubmissions,getAssignment}
