@@ -9,25 +9,25 @@ let submit = $('#Submit');
 let viewassns = $('#viewAssignments');
 
 
-addcourse.click(function () {
-    window.location.replace(window.location.href + 'addCourse');
-});
-addassgn.click(function () {
-    window.location.replace(window.location.href + 'addAssignment');
-});
-submit.click(function () {
-    window.location.replace(window.location.href + 'submitAssignment');
-});
-viewassns.click(function () {
-    window.location.replace(window.location.href + 'viewAssignments');
-});
+// addcourse.click(function () {
+//     window.location.replace(window.location.href + 'addCourse');
+// });
+// addassgn.click(function () {
+//     window.location.replace(window.location.href + 'addAssignment');
+// });
+// submit.click(function () {
+//     window.location.replace(window.location.href + 'submitAssignment');
+// });
+// viewassns.click(function () {
+//     window.location.replace(window.location.href + 'viewAssignments');
+// });
 
-submissions.click(function () {
-    window.location.replace(window.location.href+'ViewSubmissions');
-});
+// submissions.click(function () {
+//     window.location.replace(window.location.href+'ViewSubmissions');
+// });
 
-viewcourses.click(function () {
-    window.location.replace(window.location.href + 'viewcourses');
-});
+// viewcourses.click(function () {
+//     window.location.replace(window.location.href + 'viewcourses');
+// });
 
 
