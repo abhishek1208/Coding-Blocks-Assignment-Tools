@@ -318,9 +318,11 @@ function addAsgnToCourse(courseID, asgnID) {
 
 
 //function to submit assignment
-function submitasgn(courseID,asgnID,email,url) {
+function submitAssgn(courseID, asgnID, email, url, done) {
+    //TODO if incorrect course ID, assn doesnt exist
 
-
+    //TODO if email not within students' list
+    
     //TODO if same person submits again
 
 
@@ -338,7 +340,10 @@ function submitasgn(courseID,asgnID,email,url) {
 
         })
 
+    }).then(function () {
+        done();
     }).catch(function (err) {
+        //if(err) console.log(err);
         if(err) throw err;
     });
 }
@@ -378,4 +383,4 @@ function getAssignment(id, done) {
 
 
 
-module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitasgn , getAllAssignments , getAllCourses,getAllSubmissions,getAssignment}
+module.exports = {addcourse , endcourse , addStudent , addasgn , addAsgnToCourse , submitAssgn , getAllAssignments , getAllCourses,getAllSubmissions,getAssignment}

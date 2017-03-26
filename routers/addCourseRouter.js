@@ -27,7 +27,7 @@ router.get('/thanks', function (req, res) {
 
         res.render('index', {
             title: "Course Added",
-            body: "The course has been added Successfully. Thankyou for using HackerAdvance"
+            body: "The course has been added Successfully. Thank you for using HackerAdvance"
         })
     }
     else {
@@ -35,7 +35,7 @@ router.get('/thanks', function (req, res) {
 
         res.render('index', {
             title: "Course not Added",
-            body: "Soory we are facing some issues at the moment plz try again later. Thankyou for using HackerAdvance"
+            body: "Sorry we are facing some issues at the moment plz try again later. Thank you for using HackerAdvance"
         })
 
     }

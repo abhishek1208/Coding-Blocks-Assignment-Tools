@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../jqueryUI/jquery-ui.css">
+    <style>
+        html{
+            padding: 10px;
+        }
+        form .error {
+            font-weight: normal;
+            font-style: italic;
+            color: #ff0000;
+        }
+    </style>
+
+    <title>Submit Assignment</title>
+
+</head>
+<body>
+
+<div class="jumbotron"><h1>Hacker Advance</h1><h2>Submit your Solution</h2></div>
+
+<form id="assgnSubmission">
+
+    <div class="form-group">
+        <label for="courseID">Select your Course:</label>
+        <input type="text" class="form-control" id="courseID" name="cID" placeholder="Course Name"></input>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <label for="assgnID">Select the Assignment:</label>
+        <input type="text" class="form-control" id="assgnID" name="aID" placeholder="Assignment"></input>
+    </div>
+    <br>
+
+    <!--TODO replace text input with dynamic drop-down menu-->
+
+    <!--<div class="form-group">
+        <label for="courseID">Select your Course:</label>
+        <select class="form-control" id="courseID">
+        </select>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="assgnID">Select the Assignment:</label>
+        <select class="form-control" id="assgnID">
+        </select>
+    </div>
+    <br>-->
+
+    <div class="form-group">
+        <label for="stdntEmail">Enter your Email address:</label>
+        <input type="text" class="form-control" id="stdntEmail" name="eM" placeholder="Enter email">
+    </div>
+    <br>
+
+    <div class="form-group">
+        <label for="submission">Your Submission:</label>
+        <input type="text" class="form-control" id="submission" name="ans" placeholder="URL of assignment solution"></input>
+    </div>
+    <br>
+
+    <button type="submit" class="btn btn-primary " id="submit">Submit</button>
+
+</form>
+
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type = "text/javascript" src="../jqueryUI/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="./index.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
+</body>
+</html>
